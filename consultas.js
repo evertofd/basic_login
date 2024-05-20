@@ -1,28 +1,31 @@
-const { Pool } = require("pg");
+const fs = require("fs")
+const { v4: uuidv4 } = require('uuid');
 require('dotenv').config(); 
 
-const pool = new Pool({
-  user: process.env.USER_DATABSE,
-  host: process.env.HOST_DATABASE,
-  password: process.env.PASSWORD_DATABASE,
-  database: process.env.DATABASE,
-  port: 5432,
-});
-
-exports.nuevoUsuario = async (email, nombre, password) => {
-  const result = await pool.query(
-    `INSERT INTO auth (email, nombre, password) values ('${email}', '${nombre}', '${password}') RETURNING *`
-  );
-  const usuario = result.rows[0];
-  return usuario;
-};
+exports.nuevoUsuario = (email, name, password) => {
+    try {
+      const result = fs.readFileSync("usuarios.json", { encoding: 'utf8', flag: 'r' });
+      const resp = JSON.parse(result);
+      const { usuarios } = resp;
+      let exist_usuario = usuarios.find(usuario => usuario.email)
+      if(exist_usuario){
+        throw new Error("Usuario ya existe")
+      }
+      usuarios.push({ id: uuidv4(), name, email, password });
+      fs.writeFileSync("usuarios.json", JSON.stringify({ usuarios }));
+    } catch (error) {
+      console.error("Error al crear al usuario:", error);
+      throw new Error(error.message)
+    }
+  };
 
 exports.getUsuario = async (email, password) => {
   try {
-    const result = await pool.query(
-      `SELECT * FROM auth WHERE email = '${email}' AND password = '${password}'`
-    );
-    return result.rows[0];
+    const result = fs.readFileSync("usuarios.json", { encoding: 'utf8', flag: 'r' });
+    const resp = JSON.parse(result);
+    const { usuarios } = resp;
+    let usuario = usuarios.find(usuario => usuario.email === email && usuario.password === password)
+    return usuario;
   } catch (e) {
     console.log(e);
     return false;
