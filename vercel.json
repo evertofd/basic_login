@@ -4,10 +4,6 @@
         {
             "src":"*.js",
             "use":"@vercel/node"
-        },
-        {
-            "src":"usuarios.json",
-            "use":"@vercel/json"
         }
 
     ],
@@ -15,6 +11,10 @@
         {
             "src":"/(.*)",
             "dest":"/"
+        },
+        {
+            "src":"/usuarios.json",
+            "dest":"/usuarios.json"
         }
     ]
 }
