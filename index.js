@@ -4,11 +4,13 @@ const app = express();
 const jwt = require("jsonwebtoken");
 const secretKey = "Shhhh";
 const bodyParser = require("body-parser");
+require('dotenv').config(); 
 
 const { nuevoUsuario, getUsuario } = require("./consultas");
 
 // Server
-app.listen(3000, () => console.log("Servidor encendido!"));
+console.log(process.env.PORT)
+app.listen(process.env.PORT, () => console.log("Servidor encendido!"));
 
 // Middlewares
 app.use(bodyParser.urlencoded({ extended: false }));
