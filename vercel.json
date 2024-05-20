@@ -2,9 +2,14 @@
     "version":2,
     "builds":[
         {
-            "src":".*",
+            "src":"*.js",
+            "use":"@vercel/node"
+        },
+        {
+            "src":"usuarios.json",
             "use":"@vercel/node"
         }
+
     ],
     "routes":[
         {
