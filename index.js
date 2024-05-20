@@ -4,12 +4,14 @@ const app = express();
 const jwt = require("jsonwebtoken");
 const secretKey = "Shhhh";
 const bodyParser = require("body-parser");
-require('dotenv').config(); 
+require('dotenv').config();
+const cors = require('cors')
 
 const { nuevoUsuario, getUsuario } = require("./consultas");
 
 // Server
 console.log(process.env.PORT)
+app.use(cors())
 app.listen(process.env.PORT, () => console.log("Servidor encendido!"));
 
 // Middlewares
