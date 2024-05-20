@@ -1,7 +1,6 @@
 const fs = require("fs")
 const { v4: uuidv4 } = require('uuid');
 require('dotenv').config();
-const path = require('path');
 const database = require("./usuarios")
 
 // Ruta al archivo que quieres leer
