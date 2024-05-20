@@ -13,7 +13,7 @@ exports.nuevoUsuario = (email, name, password) => {
       }
       usuarios.push({ id: uuidv4(), name, email, password });
       const newFileContent = `module.exports = ${JSON.stringify({ usuarios }, null, 2)};`;
-      fs.writeFileSync("usuarios.js", newFileContent, { encoding: 'utf8' });
+      fs.writeFileSync("./usuarios.js", newFileContent, { encoding: 'utf8' });
     } catch (error) {
       console.error("Error al crear al usuario:", error);
       throw new Error(error.message)
