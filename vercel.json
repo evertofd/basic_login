@@ -3,12 +3,7 @@
     "builds": [
         {
             "src": "*.js",
-            "use": "@vercel/node",
-            "config": {
-                "includeFiles": [
-                    "usuarios.json"
-                ]
-            }
+            "use": "@vercel/node"
         }
     ],
     "routes": [
