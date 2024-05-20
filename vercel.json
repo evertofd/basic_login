@@ -7,7 +7,7 @@
         },
         {
             "src":"usuarios.json",
-            "use":"@vercel/static"
+            "use":"@vercel/json"
         }
 
     ],
